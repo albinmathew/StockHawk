@@ -19,7 +19,7 @@ import com.sam_chordas.android.stockhawk.api.model.Result;
 import com.sam_chordas.android.stockhawk.api.model.Results;
 import com.sam_chordas.android.stockhawk.api.QuoteService;
 import com.sam_chordas.android.stockhawk.utility.CustomSpinnerAdapter;
-import com.sam_chordas.android.stockhawk.utility.Utility;
+import com.sam_chordas.android.stockhawk.utility.DateUtils;
 import com.squareup.okhttp.OkHttpClient;
 
 import org.achartengine.ChartFactory;
@@ -142,23 +142,23 @@ public class GraphActivity extends AppCompatActivity {
                                        int position, long id) {
                 // On selecting a spinner item
                 String item = adapter.getItemAtPosition(position).toString();
-                String startDate = Utility.getFormattedDate(System.currentTimeMillis());
+                String startDate = DateUtils.getFormattedDate(System.currentTimeMillis());
                 Date date = new Date();
                 switch (item) {
                     case "1W":
-                        callRetrofitFetch(symbol, startDate, Utility.get1WeekBackDate(date));
+                        callRetrofitFetch(symbol, startDate, DateUtils.getAWeekBackDate(date));
                         break;
                     case "1M":
-                        callRetrofitFetch(symbol, startDate, Utility.get1MonthBackDate(date));
+                        callRetrofitFetch(symbol, startDate, DateUtils.getAMonthBackDate(date));
                         break;
                     case "3M":
-                        callRetrofitFetch(symbol, startDate, Utility.get3MonthsBackDate(date));
+                        callRetrofitFetch(symbol, startDate, DateUtils.getThreeMonthsBackDate(date));
                         break;
                     case "6M":
-                        callRetrofitFetch(symbol, startDate, Utility.get6MonthsBackDate(date));
+                        callRetrofitFetch(symbol, startDate, DateUtils.getSixMonthsBackDate(date));
                         break;
                     case "1Y":
-                        callRetrofitFetch(symbol, startDate, Utility.get1YearBackDate(date));
+                        callRetrofitFetch(symbol, startDate, DateUtils.getAYearBackDate(date));
                         break;
 
                 }

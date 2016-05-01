@@ -13,7 +13,8 @@ import com.sam_chordas.android.stockhawk.R;
 import java.util.ArrayList;
 
 /**
- * Created by amit on 4/2/2016.
+ * @author albinmathew
+ * @date 01/05/16.
  */
 public class CustomSpinnerAdapter extends ArrayAdapter<String> {
 
@@ -43,7 +44,6 @@ public class CustomSpinnerAdapter extends ArrayAdapter<String> {
         return getCustomView(position, convertView, parent);
     }
 
-    // This funtion called for each row ( Called data.size() times )
     public View getCustomView(int position, View convertView, ViewGroup parent) {
 
         View row = inflater.inflate(R.layout.spinner_row, parent, false);
