@@ -12,14 +12,13 @@ public class Utility {
 
     public static final String DATE_FORMAT = "yyyy-MM-dd";
 
-    public static String getFormattedDate(long dateInMillis ) {
+    public static String getFormattedDate(long dateInMillis) {
         Locale localeUS = new Locale("en", "US");
-        SimpleDateFormat queryDayFormat = new SimpleDateFormat(Utility.DATE_FORMAT,localeUS);
+        SimpleDateFormat queryDayFormat = new SimpleDateFormat(Utility.DATE_FORMAT, localeUS);
         return queryDayFormat.format(dateInMillis);
     }
 
-    public static String get1WeekBackDate(Date date)
-    {
+    public static String get1WeekBackDate(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         cal.add(Calendar.DATE, -7);
@@ -27,8 +26,7 @@ public class Utility {
         return getFormattedDate(cal.getTimeInMillis());
     }
 
-    public static String get1MonthBackDate(Date date)
-    {
+    public static String get1MonthBackDate(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         cal.add(Calendar.MONTH, -1);
@@ -36,8 +34,7 @@ public class Utility {
         return getFormattedDate(cal.getTimeInMillis());
     }
 
-    public static String get3MonthsBackDate(Date date)
-    {
+    public static String get3MonthsBackDate(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         cal.add(Calendar.MONTH, -3);
@@ -53,8 +50,7 @@ public class Utility {
         return getFormattedDate(cal.getTimeInMillis());
     }
 
-    public static String get1YearBackDate(Date date)
-    {
+    public static String get1YearBackDate(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         cal.add(Calendar.YEAR, -1);

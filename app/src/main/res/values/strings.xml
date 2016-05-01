@@ -3,7 +3,7 @@
 
     <string name="action_example" translatable="false">Example action</string>
 
-    <string name="action_settings"  translatable="false">Settings</string>
+    <string name="action_settings" translatable="false">Settings</string>
     <string name="action_change_units" translatable="false">Change Units</string>
     <string name="symbol_search" translatable="false">Symbol Search</string>
     <string name="content_test" translatable="false">Search for a Stock Symbol</string>
@@ -18,12 +18,12 @@
     <string name="content_description_add_stock" translatable="false">Add a stock item</string>
 
     <integer name="snackbar_duration">10000</integer>
-    <string name="string_tag"  translatable="false">tag</string>
-    <string name="string_add"  translatable="false">add</string>
-    <string name="string_symbol"  translatable="false">symbol</string>
-    <string name="string_periodic"  translatable="false">periodic</string>
-    <string name="string_init"  translatable="false">init</string>
-    <string name="error_no_symbol"  translatable="false">Error! symbol Not found</string>
+    <string name="string_tag" translatable="false">tag</string>
+    <string name="string_add" translatable="false">add</string>
+    <string name="string_symbol" translatable="false">symbol</string>
+    <string name="string_periodic" translatable="false">periodic</string>
+    <string name="string_init" translatable="false">init</string>
+    <string name="error_no_symbol" translatable="false">Error! symbol Not found</string>
     <string name="string_symbol_found" translatable="false">Success! added new Symbol</string>
     <string name="string_stock_saved" translatable="false">This stock is already saved!</string>
     <string name="string_set_background_resource" translatable="false">setBackgroundResource</string>

@@ -15,40 +15,39 @@ import com.google.android.gms.gcm.TaskParams;
  */
 public class StockIntentService extends IntentService {
 
-  public StockIntentService(){
-    super(StockIntentService.class.getName());
-  }
+    public StockIntentService() {
+        super(StockIntentService.class.getName());
+    }
 
-  public StockIntentService(String name) {
-    super(name);
-  }
+    public StockIntentService(String name) {
+        super(name);
+    }
 
-  @Override protected void onHandleIntent(Intent intent) {
-    Log.d(StockIntentService.class.getSimpleName(), "Stock Intent Service");
-    StockTaskService stockTaskService = new StockTaskService(this);
-    Bundle args = new Bundle();
-    if (intent.getStringExtra("tag").equals("add")){
-      args.putString("symbol", intent.getStringExtra("symbol"));
-    }
-    // We can call OnRunTask from the intent service to force it to run immediately instead of
-    // scheduling a task.
-    Handler mHandler = new Handler(getMainLooper());
-    if(stockTaskService.onRunTask(new TaskParams(intent.getStringExtra("tag"), args))== GcmNetworkManager.RESULT_FAILURE){
-      mHandler.post(new Runnable() {
-        @Override
-        public void run() {
-          Toast.makeText(getApplicationContext(), "Error!symbol Not found", Toast.LENGTH_LONG).show();
+    @Override
+    protected void onHandleIntent(Intent intent) {
+        Log.d(StockIntentService.class.getSimpleName(), "Stock Intent Service");
+        StockTaskService stockTaskService = new StockTaskService(this);
+        Bundle args = new Bundle();
+        if (intent.getStringExtra("tag").equals("add")) {
+            args.putString("symbol", intent.getStringExtra("symbol"));
         }
-      });
-    }
-    else
-    {
-      mHandler.post(new Runnable() {
-        @Override
-        public void run() {
-          Toast.makeText(getApplicationContext(),"Success! added new Symbol",Toast.LENGTH_LONG).show();
+        // We can call OnRunTask from the intent service to force it to run immediately instead of
+        // scheduling a task.
+        Handler mHandler = new Handler(getMainLooper());
+        if (stockTaskService.onRunTask(new TaskParams(intent.getStringExtra("tag"), args)) == GcmNetworkManager.RESULT_FAILURE) {
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), "Error!symbol Not found", Toast.LENGTH_LONG).show();
+                }
+            });
+        } else {
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), "Success! added new Symbol", Toast.LENGTH_LONG).show();
+                }
+            });
         }
-      });
     }
-  }
 }

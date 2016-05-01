@@ -19,6 +19,7 @@ public class QuoteWidgetRemoteViewsService extends RemoteViewsService {
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
         return new RemoteViewsFactory() {
             private Cursor data = null;
+
             @Override
             public void onCreate() {
                 // Nothing to do
@@ -36,10 +37,10 @@ public class QuoteWidgetRemoteViewsService extends RemoteViewsService {
                 // that calls use our process and permission
                 final long identityToken = Binder.clearCallingIdentity();
 
-                // This is the same query from MyStocksActivity
+                // This is the same query from StocksActivity
                 data = getContentResolver().query(
                         QuoteProvider.Quotes.CONTENT_URI,
-                        new String[] {
+                        new String[]{
                                 QuoteColumns._ID,
                                 QuoteColumns.SYMBOL,
                                 QuoteColumns.BIDPRICE,
@@ -51,7 +52,7 @@ public class QuoteWidgetRemoteViewsService extends RemoteViewsService {
                         new String[]{"1"},
                         null);
                 Binder.restoreCallingIdentity(identityToken);
-                Log.d("datas",data.toString());
+                Log.d("datas", data.toString());
             }
 
             @Override
@@ -61,7 +62,7 @@ public class QuoteWidgetRemoteViewsService extends RemoteViewsService {
 
             @Override
             public int getCount() {
-                Log.d("count",String.valueOf(data.getCount()));
+                Log.d("count", String.valueOf(data.getCount()));
                 return data == null ? 0 : data.getCount();
             }
 
@@ -76,7 +77,7 @@ public class QuoteWidgetRemoteViewsService extends RemoteViewsService {
                 RemoteViews views = new RemoteViews(getPackageName(), R.layout.widget_collection_item);
 
                 // Bind data to the views
-                Log.d("data",data.getString(data.getColumnIndex(getResources().getString(R.string.string_symbol))));
+                Log.d("data", data.getString(data.getColumnIndex(getResources().getString(R.string.string_symbol))));
                 views.setTextViewText(R.id.stock_symbol, data.getString(data.getColumnIndex
                         (getResources().getString(R.string.string_symbol))));
 

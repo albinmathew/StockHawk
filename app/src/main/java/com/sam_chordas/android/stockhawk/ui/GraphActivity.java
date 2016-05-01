@@ -13,11 +13,11 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import com.sam_chordas.android.stockhawk.R;
-import com.sam_chordas.android.stockhawk.modal.Query;
-import com.sam_chordas.android.stockhawk.modal.Quote;
-import com.sam_chordas.android.stockhawk.modal.Result;
-import com.sam_chordas.android.stockhawk.modal.Results;
-import com.sam_chordas.android.stockhawk.singleton.QuoteService;
+import com.sam_chordas.android.stockhawk.api.model.Query;
+import com.sam_chordas.android.stockhawk.api.model.Quote;
+import com.sam_chordas.android.stockhawk.api.model.Result;
+import com.sam_chordas.android.stockhawk.api.model.Results;
+import com.sam_chordas.android.stockhawk.api.QuoteService;
 import com.sam_chordas.android.stockhawk.utility.CustomSpinnerAdapter;
 import com.sam_chordas.android.stockhawk.utility.Utility;
 import com.squareup.okhttp.OkHttpClient;
@@ -39,10 +39,12 @@ import retrofit.RetrofitError;
 import retrofit.client.OkClient;
 import retrofit.client.Response;
 
-;
+/**
+ * @author albinmathew
+ * @date 01/05/16.
+ */
 
-public class DetailActivity extends AppCompatActivity  {
-    String result;
+public class GraphActivity extends AppCompatActivity {
     public static String symbol;
     private RelativeLayout mChartHolder;
 
@@ -50,9 +52,9 @@ public class DetailActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        mChartHolder = (RelativeLayout)findViewById(R.id.container_main);
+        mChartHolder = (RelativeLayout) findViewById(R.id.container_main);
         symbol = getIntent().getExtras().getString("symbol");
-        Log.d("symbol",symbol);
+        Log.d("symbol", symbol);
         getSupportActionBar().setTitle(symbol);
     }
 
@@ -65,7 +67,7 @@ public class DetailActivity extends AppCompatActivity  {
         RestAdapter adapter = builder.build();
         QuoteService QuoteApi = adapter.create(QuoteService.class);
 
-        String q = "select * from yahoo.finance.historicaldata where symbol = \""+symbol+"\" and startDate = \""+endDate+"\" and endDate = \""+startDate+"\"";
+        String q = "select * from yahoo.finance.historicaldata where symbol = \"" + symbol + "\" and startDate = \"" + endDate + "\" and endDate = \"" + startDate + "\"";
         String diagnostics = "true";
         String env = "store://datatables.org/alltableswithkeys";
         String format = "json";
@@ -75,7 +77,7 @@ public class DetailActivity extends AppCompatActivity  {
 
                 mChartHolder.removeAllViews();
 
-                Log.d("result",result.toString());
+                Log.d("result", result.toString());
 
                 Query mQuery = result.getQuery();
                 Results mResult = mQuery.getResults();
@@ -85,7 +87,7 @@ public class DetailActivity extends AppCompatActivity  {
                 int hour = 0;
                 for (Quote hf : mQuote) {
                     series.add(hour++, Double.parseDouble(hf.getHigh()));
-                    Log.d("value",hf.getHigh());
+                    Log.d("value", hf.getHigh());
                 }
                 XYSeriesRenderer renderer = new XYSeriesRenderer();
                 renderer.setLineWidth(2);
@@ -111,7 +113,7 @@ public class DetailActivity extends AppCompatActivity  {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.d("error",error.toString());
+                Log.d("error", error.toString());
                 error.printStackTrace();
             }
         });
@@ -132,8 +134,7 @@ public class DetailActivity extends AppCompatActivity  {
         list.add(getString(R.string.one_year));
         CustomSpinnerAdapter spinAdapter = new CustomSpinnerAdapter(
                 getApplicationContext(), list);
-        spinner.setAdapter(spinAdapter); // set the adapter to provide layout of rows and content
-//        spinner.setOnItemSelectedListener(onItemSelectedListener);
+        spinner.setAdapter(spinAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -143,30 +144,24 @@ public class DetailActivity extends AppCompatActivity  {
                 String item = adapter.getItemAtPosition(position).toString();
                 String startDate = Utility.getFormattedDate(System.currentTimeMillis());
                 Date date = new Date();
-                switch (item)
-                {
+                switch (item) {
                     case "1W":
-//                        String d = Utility.get1WeekBackDate(date);
-                        callRetrofitFetch(symbol,startDate,Utility.get1WeekBackDate(date));
+                        callRetrofitFetch(symbol, startDate, Utility.get1WeekBackDate(date));
                         break;
                     case "1M":
-//                        String d2 = Utility.get1MonthBackDate(date);
-                        callRetrofitFetch(symbol,startDate,Utility.get1MonthBackDate(date));
+                        callRetrofitFetch(symbol, startDate, Utility.get1MonthBackDate(date));
                         break;
                     case "3M":
-                        callRetrofitFetch(symbol,startDate,Utility.get3MonthsBackDate(date));
+                        callRetrofitFetch(symbol, startDate, Utility.get3MonthsBackDate(date));
                         break;
                     case "6M":
-                        callRetrofitFetch(symbol,startDate,Utility.get6MonthsBackDate(date));
+                        callRetrofitFetch(symbol, startDate, Utility.get6MonthsBackDate(date));
                         break;
                     case "1Y":
-                        callRetrofitFetch(symbol,startDate,Utility.get1YearBackDate(date));
+                        callRetrofitFetch(symbol, startDate, Utility.get1YearBackDate(date));
                         break;
 
                 }
-                // Showing selected spinner item
-//                Toast.makeText(getApplicationContext(), "Selected  : " + item,
-//                        Toast.LENGTH_LONG).show();
             }
 
             @Override
