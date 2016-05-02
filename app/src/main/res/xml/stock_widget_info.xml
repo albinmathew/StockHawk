@@ -9,5 +9,5 @@
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="0"
     android:widgetCategory="home_screen|keyguard"
-    android:previewImage="@drawable/widget_list_preview"
+    android:previewImage="@drawable/ic_launcher-web"
     tools:ignore="UnusedAttribute" />
